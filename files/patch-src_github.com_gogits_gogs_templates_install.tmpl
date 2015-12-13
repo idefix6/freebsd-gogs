@@ -1,0 +1,24 @@
+--- src/github.com/gogits/gogs/templates/install.tmpl.orig	2015-12-11 20:48:02 UTC
++++ src/github.com/gogits/gogs/templates/install.tmpl
+@@ -8,12 +8,9 @@
+ 			<div class="ui attached segment">
+ 				{{template "base/alert" .}}
+ 
+-				<p>{{.i18n.Tr "install.docker_helper" "https://github.com/gogits/gogs/tree/master/docker" | Safe}}</p>
+-
+ 				<form class="ui form" action="{{AppSubUrl}}/install" method="post">
+ 					<!-- Dtabase Settings -->
+ 					<h4 class="ui dividing header">{{.i18n.Tr "install.db_title"}}</h4>
+-					<p>{{.i18n.Tr "install.requite_db_desc"}}</p>
+ 					<div class="inline required field {{if .Err_DbType}}error{{end}}">
+ 						<label>{{.i18n.Tr "install.db_type"}}</label>
+ 						<div class="ui selection database type dropdown">
+@@ -84,7 +81,7 @@
+ 						<input id="repo_root_path" name="repo_root_path" value="{{.repo_root_path}}" required>
+ 						<span class="help">{{.i18n.Tr "install.repo_path_helper"}}</span>
+ 					</div>
+-					<div class="inline required field {{if .Err_RunUser}}error{{end}}">
++					<div class="disabled inline required field {{if .Err_RunUser}}error{{end}}">
+ 						<label for="run_user">{{.i18n.Tr "install.run_user"}}</label>
+ 						<input id="run_user" name="run_user" value="{{.run_user}}" required>
+ 						<span class="help">{{.i18n.Tr "install.run_user_helper"}}</span>

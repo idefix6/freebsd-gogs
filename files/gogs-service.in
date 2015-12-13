@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# $FreeBSD$
+#
+
+# Copyright (C) 2015 by Yuri Victorovich. All rights reserved.
+
+# PROVIDE: %%PORTNAME%%
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+# %%PORTNAME%% is disabled by default, if you have configuration file
+#
+# Add the following line to /etc/rc.conf to enable %%PORTNAME%%:
+#
+#%%PORTNAME%%_enable="YES"
+
+. /etc/rc.subr
+
+
+name="%%PORTNAME%%"
+rcvar=%%PORTNAME%%_enable
+start_cmd="%%PORTNAME%%_start"
+stop_cmd="%%PORTNAME%%_stop"
+
+load_rc_config ${name}
+
+: ${%%PORTNAME%%_enable="NO"}
+
+: ${install_base="%%LOCALBASE%%"}
+
+check_process_by_pid_file() {
+  local pidfile="$1"
+  [ -r $pidfile -a -s $pidfile -a \
+    "$(procstat $(cat $pidfile 2>/dev/null) 2>/dev/null | tail -1 | sed -E 's/^[[:space:]]*([0-9]+).*/\1/g' 2>/dev/null)" = "$(cat $pidfile 2>/dev/null)" ] >/dev/null 2>&1 || return 1
+}
+
+stop_daemon() {
+  # assume PID is also PGID (daemon(8) PID is always PGID)
+  [ -f "$1" ] && kill -- -$(cat $1)
+}
+
+%%PORTNAME%%_start() {
+  local logfile=/var/log/%%PORTNAME%%.log
+  local pidfile=/var/run/%%PORTNAME%%.pid
+  if check_process_by_pid_file $pidfile ; then
+    echo "%%PORTNAME%% already runs (pid=$(cat $pidfile))"
+    return
+  fi
+  export USER=%%USER%%
+  export HOME=$(getent passwd %%USER%% | cut -d: -f6)
+  cd $install_base/libexec/%%PORTNAME%%
+  /usr/sbin/daemon -P $pidfile -u %%USER%% $install_base/libexec/%%PORTNAME%%/%%PORTNAME%% web >$logfile 2>&1
+}
+
+%%PORTNAME%%_stop() {
+  local pidfile=/var/run/%%PORTNAME%%.pid
+  if check_process_by_pid_file $pidfile ; then
+    echo "stopping %%PORTNAME%% (pid=$(cat $pidfile))"
+    stop_daemon $pidfile
+  fi
+}
+
+command="/usr/bin/true"
+
+run_rc_command "$1"

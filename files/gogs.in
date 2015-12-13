@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd %%LOCALBASE%%/libexec/%%PORTNAME%% &&
+USER=%%USER%% \
+HOME=$(getent passwd %%USER%% | cut -d: -f6) \
+su -m %%USER%% -c './%%PORTNAME%% web'

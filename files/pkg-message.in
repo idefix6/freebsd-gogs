@@ -1,0 +1,15 @@
+======================================================================
+You installed %%PORTNAME%%: Go Git Service.
+
+It is recommended to run %%PORTNAME%% as a service:
+# service gogs start
+
+To enable the service at startup you should add this line to /etc/rc.conf:
+%%PORTNAME%%_enable="YES"
+
+You can also run %%PORTNAME%% manually by running a command:
+$ gogs
+
+Connect to %%PORTNAME%% on the default port 3000:
+http://localhost:3000
+======================================================================
