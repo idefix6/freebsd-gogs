@@ -16,10 +16,20 @@ RUN_DEPENDS=		git:${PORTSDIR}/devel/git
 REDIS_RUN_DEPENDS=	redis>=0:${PORTSDIR}/databases/redis
 MEMCACHE_RUN_DEPENDS=	memcached>=0:${PORTSDIR}/databases/memcached
 
-OPTIONS_DEFINE=		SQLITE PGSQL REDIS MEMCACHED PAM CERT
-OPTIONS_DEFAULT=	SQLITE
+OPTIONS_DEFINE=		REDIS MEMCACHED PAM CERT
+OPTIONS_RADIO=		DATABASE WEB
+OPTIONS_RADIO_DATABASE=	MYSQL SQLITE PGSQL
+OPTIONS_RADIO_WEB=	NGINX APACHE24
+OPTIONS_DEFAULT=	SQLITE APACHE24
 MEMCACHED_DESC=		Build with MemCached support
 CERT_DESC=		Generate self-signed certificates support
+DATABASE_DESC=	Selection for database support
+MYSQL_DESC=		MySQL Database Support
+SQLITE_DESC=	SQLite Database Support
+PGSQL_DESC=		Postgres SQL Database Support
+WEB_DESC=		Webserver Support
+NGINX_DESC=		Nginx support
+APACHE24_DESC=	Apache24 support
 
 USE_GITHUB=		yes
 GH_TUPLE+=		gogits:gogs:4d31eb2
@@ -81,6 +91,28 @@ REDIS_GO_TAGS=		redis
 PAM_GO_TAGS=		pam
 CERT_GO_TAGS=		cert
 PGSQL_USES=		pgsql
+MYSQL_GO_TAGS=		mysql
+
+.include <bsd.port.options.mk>
+
+# Default requirement for gogs rc script
+_REQUIRE=		DAEMON NETWORKING
+
+.if ${PORT_OPTIONS:MMYSQL}
+_REQUIRE+=		mysql
+.endif
+
+.if ${PORT_OPTIONS:MPOSTGRESQL}
+_REQUIRE+=		postgres
+.endif
+
+.if ${PORT_OPTIONS:MNGINX}
+_REQUIRE+=		nginx
+.endif
+
+.if ${PORT_OPTIONS:MAPACHE24}
+_REQUIRE+=		apache24
+.endif
 
 USER=			gogs
 GROUP=			gogs

@@ -6,7 +6,7 @@
 # Copyright (C) 2015 by Yuri Victorovich. All rights reserved.
 
 # PROVIDE: %%PORTNAME%%
-# REQUIRE: LOGIN
+# REQUIRE: %%REQUIRE%%
 # KEYWORD: shutdown
 
 # %%PORTNAME%% is disabled by default, if you have configuration file
