@@ -19,17 +19,18 @@ MEMCACHE_RUN_DEPENDS=	memcached>=0:${PORTSDIR}/databases/memcached
 OPTIONS_DEFINE=		REDIS MEMCACHED PAM CERT
 OPTIONS_RADIO=		DATABASE WEB
 OPTIONS_RADIO_DATABASE=	MYSQL SQLITE PGSQL
-OPTIONS_RADIO_WEB=	NGINX APACHE24
-OPTIONS_DEFAULT=	SQLITE APACHE24
+OPTIONS_RADIO_WEB=	NOWEB NGINX APACHE24
+OPTIONS_DEFAULT=	SQLITE NOWEB
 MEMCACHED_DESC=		Build with MemCached support
 CERT_DESC=		Generate self-signed certificates support
-DATABASE_DESC=	Selection for database support
+DATABASE_DESC=		Selection for database support
 MYSQL_DESC=		MySQL Database Support
-SQLITE_DESC=	SQLite Database Support
+SQLITE_DESC=		SQLite Database Support
 PGSQL_DESC=		Postgres SQL Database Support
 WEB_DESC=		Webserver Support
+NOWEB_DESC=			Do not depend on webserver to start gogs webfrontend
 NGINX_DESC=		Nginx support
-APACHE24_DESC=	Apache24 support
+APACHE24_DESC=		Apache24 support
 
 USE_GITHUB=		yes
 GH_TUPLE+=		gogits:gogs:4d31eb2
