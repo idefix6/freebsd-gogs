@@ -7,9 +7,12 @@ It is recommended to run %%PORTNAME%% as a service:
 To enable the service at startup you should add this line to /etc/rc.conf:
 %%PORTNAME%%_enable="YES"
 
-You can also run %%PORTNAME%% manually by running a command:
-$ gogs
+You can also run %%PORTNAME%% manually with a command:
+# %%PORTNAME%%
 
 Connect to %%PORTNAME%% on the default port 3000:
 http://localhost:3000
+
+Configuration file is %%LOCALBASE%%/etc/gogs.ini. You can only edit it
+when %%PORTNAME%% isn't running.
 ======================================================================

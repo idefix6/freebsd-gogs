@@ -13,7 +13,22 @@
  					<div class="inline required field {{if .Err_DbType}}error{{end}}">
  						<label>{{.i18n.Tr "install.db_type"}}</label>
  						<div class="ui selection database type dropdown">
-@@ -84,7 +81,7 @@
+@@ -65,7 +62,7 @@
+ 					</div>
+ 
+ 					<div id="sqlite_settings" class="{{if not (or (eq .CurDbOption "SQLite3") (eq .CurDbOption "TiDB"))}}hide{{end}}">
+-						<div class="inline required field {{if or .Err_DbPath .Err_DbSetting}}error{{end}}">
++						<div class="disabled inline required field {{if or .Err_DbPath .Err_DbSetting}}error{{end}}">
+ 							<label for="db_path">{{.i18n.Tr "install.path"}}</label>
+ 							<input id="db_path" name="db_path" value="{{.db_path}}">
+ 							<span class="help">{{.i18n.Tr "install.sqlite_helper"}}</span>
+@@ -79,12 +76,12 @@
+ 						<input id="app_name" name="app_name" value="{{.app_name}}" required>
+ 						<span class="help">{{.i18n.Tr "install.app_name_helper"}}</span>
+ 					</div>
+-					<div class="inline required field {{if .Err_RepoRootPath}}error{{end}}">
++					<div class="disabled inline required field {{if .Err_RepoRootPath}}error{{end}}">
+ 						<label for="repo_root_path">{{.i18n.Tr "install.repo_path"}}</label>
  						<input id="repo_root_path" name="repo_root_path" value="{{.repo_root_path}}" required>
  						<span class="help">{{.i18n.Tr "install.repo_path_helper"}}</span>
  					</div>

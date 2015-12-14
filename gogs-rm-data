@@ -1,0 +1,22 @@
+#!/bin/sh
+
+while true; do
+  read -p "This will delete all gogs databases, are you sure you want to proceed? (yes/no)" yn
+  case $yn in
+    [Yy]* ) break;;
+    [Nn]* ) exit;;
+    * ) echo "Please answer yes or no.";;
+  esac
+done
+
+rm -rf /var/db/gogs/*/* /var/db/gogs/*/.ssh
+rm -rf /var/log/gogs/* /var/log/gogs.log
+if [ -f /usr/local/etc/gogs.ini.sample ] && [ -f /usr/local/etc/gogs.ini ]; then
+  cp /usr/local/etc/gogs.ini.sample /usr/local/etc/gogs.ini
+  echo "deleted files while Gogs is installed"
+elif [ -f /usr/local/etc/gogs.ini ]; then
+  rm /usr/local/etc/gogs.ini
+  echo "deleted files while Gogs is not installed"
+else
+  echo "Gogs isn't installed!"
+fi

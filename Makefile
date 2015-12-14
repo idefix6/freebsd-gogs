@@ -84,9 +84,9 @@ SUB_FILES=		gogs gogs-service pkg-message
 SUB_LIST=		LOCALBASE=${LOCALBASE} PORTNAME=${PORTNAME} USER=${USER}
 #PLIST_SUB_USER_GROUP=	USER="${USER}" GROUP="${GROUP}"
 
-USES=			go
+USES=				go
 GO_MAIN_PATH=		github.com/gogits/gogs
-GO_BASE=		d75b190:net 435f36e:text 7b85b09:crypto
+GO_BASE=			21af302:net 87ad79f:text 7b85b09:crypto
 SQLITE_GO_TAGS=		sqlite
 REDIS_GO_TAGS=		redis
 PAM_GO_TAGS=		pam
@@ -115,8 +115,8 @@ _REQUIRE+=		nginx
 _REQUIRE+=		apache24
 .endif
 
-USER=			gogs
-GROUP=			gogs
+USER=			git
+GROUP=			git
 USERS=			${USER}
 GROUPS=			${GROUP}
 
